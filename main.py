@@ -13,7 +13,9 @@ class Game:
 
     def __init__(self):
         self.create_window()
-        self.bomb = image_converter.convert('bomb')
+        self.size = 900
+        self.bomb = image_converter.convert(filename='bomb', width=self.size)
+        self.bomb_transform = pygame.transform.scale(pygame.image.load(r'.\images\originals\original_bomb.png'), (self.size, self.size))
         self.mainloop()
 
     def create_window(self):
@@ -21,7 +23,8 @@ class Game:
 
     def window_updating(self):
         self.window.fill('white')
-        self.window.blit(self.bomb, (200, 200))
+        self.window.blit(self.bomb, (20, 20))
+        self.window.blit(self.bomb_transform, (700, 20))
 
         pygame.display.flip()
 

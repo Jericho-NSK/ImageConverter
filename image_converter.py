@@ -15,19 +15,28 @@ import pygame
 
 
 def convert(filename: str,
-            width: int = None,
-            height: int = None,
+            width: int | float | None = None,
+            height: int | float | None = None,
+            square: bool = True,
             new_file: bool = True,
-            for_pygame: bool = True) -> pygame.Surface | PIL.Image.Image | bytes:
+            for_pygame: bool = True,
+            ) -> pygame.Surface | PIL.Image.Image | bytes:
     """
     Convert to the image with new size to bytecode WITH OR WITHOUT creating a new file
     """
 
     image = PIL.Image.open(os.path.join(os.getcwd(), 'images', 'originals', f'original_{filename}.png'), mode='r')
 
-    if not width:
+    if square and (width and not height):
+        height = width
+    elif square and (height and not width):
+        width = height
+    elif width and not height:
+        height = width * image.size[1] / image.size[0]
+    elif height and not width:
+        width = height * image.size[0] / image.size[1]
+    elif not width and not height:
         width = image.size[0]
-    if not height:
         height = image.size[1]
 
     image = image.resize(
