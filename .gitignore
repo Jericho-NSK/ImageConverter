@@ -152,11 +152,7 @@ cython_debug/
 .idea/
 
 # Imades, sounds, fonts
-*.ico
-*.png
 *.ogg
-*.jpg
-*.bmp
 sounds/
 music/
 fonts/
